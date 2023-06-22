@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Define ANSI color codes
+GREEN="\033[1;32m"
+BLUE="\033[1;34m"
+RED="\033[1;31m"
+BOLD="\033[1m"
+RESET="\033[0m"
+
+# Enable colors in Powershell (has scrolling issue?)
+export FORCE_COLOR=1
+
+if ! npm run lint-staged; then
+  printf "\n\n${BLUE}Une erreur s'est produite lors de l'exécution de lint-staged.\nPour corriger les problèmes vous pouvez exécuter ${GREEN}${BOLD}npm run lint-staged-fix ${RESET}\n\n"
+  exit 1
+fi

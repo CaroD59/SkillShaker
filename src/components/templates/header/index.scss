@@ -1,0 +1,17 @@
+@import '../../../variables';
+
+#SkillShaker-Header {
+  padding-top: 1.5em;
+
+  max-width: 1320px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  .logo-logged {
+    img {
+      width: 167px;
+      height: 80px;
+    }
+  }
+}

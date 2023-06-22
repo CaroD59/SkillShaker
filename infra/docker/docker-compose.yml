@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  node:
+    container_name: $COMPOSE_PROJECT_NAME
+    build:
+      context: ../..
+      dockerfile: infra/docker/node/Dockerfile
+      target: ${ENV:-dev}
+    volumes:
+      - ../..:/app
+    environment:
+      DOMAIN_NAME: $DOMAIN_NAME
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.$COMPOSE_PROJECT_NAME.rule=Host(`$DOMAIN_NAME`)
+      - traefik.http.routers.$COMPOSE_PROJECT_NAME.entrypoints=http
+      - traefik.http.services.$COMPOSE_PROJECT_NAME.loadbalancer.server.port=$PORT
+    ports:
+      - ${PORT}:3000

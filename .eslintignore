@@ -1,0 +1,13 @@
+# Add files here to ignore them from eslint formatting
+
+/dist
+/coverage
+/node_modules
+/.gitlab
+
+CHANGELOG.md
+README.md
+
+**/.next
+.eslintrc.js
+**/anim3dots.json

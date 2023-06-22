@@ -1,0 +1,27 @@
+name: Test
+on: [push, pull_request]
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18.15.0
+      - name: Install dependencies
+        run: npm install
+      - name: Check Prettier
+        run: npm run prettier:check
+
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18.15.0
+      - name: Install dependencies
+        run: npm install
+      - name: Check Eslint
+        run: npm run eslint:check
