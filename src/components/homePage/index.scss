@@ -202,8 +202,14 @@
               &.active {
                 height: 200px;
                 overflow-y: scroll;
+                overflow-x: hidden;
                 border-bottom-right-radius: 5px;
                 border-bottom-left-radius: 5px;
+                .refused-tag-class,
+                .suggested-tag-class {
+                  opacity: 0.5;
+                }
+
                 div {
                   padding: 10px 0px 10px 10px;
                   cursor: pointer;
@@ -342,6 +348,7 @@
         text-align: center;
         padding: 10px 0px 25px 0px;
       }
+
       .suggestedTags,
       .myTags,
       .refusedTags {
@@ -385,6 +392,14 @@
       }
       .refusedTags {
         border: none;
+      }
+      .myTags {
+        .tag-content {
+          .check-tag {
+            cursor: default;
+            opacity: 0.5;
+          }
+        }
       }
     }
   }

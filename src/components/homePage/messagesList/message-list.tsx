@@ -4,11 +4,12 @@ import { RiMessage2Fill } from 'react-icons/ri';
 import Cookies from 'js-cookie';
 import Menu from './menuMessage';
 import Message from './message';
-import axios from 'axios';
 import { useState, useContext, useEffect, useRef } from 'react';
+import { GetAllMessages } from '../../../services/api_manager';
 
 // CONTEXT
 import User from '../../../contexts/userContext';
+import { Messages } from 'interfaces/messages.model';
 
 export default function MessagesList() {
   const { user } = useContext(User);
@@ -48,7 +49,7 @@ export default function MessagesList() {
   }, [ref]);
 
   //API
-  const [messages, setMessages] = useState<any>([]);
+  const [messages, setMessages] = useState<Messages[]>([]);
   const [visibleMessages, setVisibleMessages] = useState<number>(1);
   const handleShowMore: () => void = () => {
     setVisibleMessages(visibleMessages + 1);
@@ -57,20 +58,20 @@ export default function MessagesList() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (user) {
-      axios
-        .get(import.meta.env.VITE_BASE_URL + '/message/get/feed', {
-          headers: {
-            Authorization: 'Bearer ' + authToken,
-          },
-        })
-        .catch(() => {
-          setError('Une erreur est survenue...');
-        })
-        .then(async (data: void | any) => {
-          setMessages(data.data.messages);
-        });
-    }
+    const fetchData = async () => {
+      if (user) {
+        try {
+          const messagesFeed = await GetAllMessages();
+          if (messagesFeed.length > 0) {
+            setMessages(messagesFeed);
+          }
+        } catch (error) {
+          console.error('Erreur lors des messages :', error);
+        }
+      }
+    };
+
+    fetchData();
   }, [user, authToken]);
 
   // LOCAL STORAGE

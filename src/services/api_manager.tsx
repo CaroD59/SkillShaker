@@ -1,0 +1,68 @@
+import axios, { AxiosResponse } from 'axios';
+import { AllTagsInterface, UserTagsInterface } from '../interfaces/tags.model';
+import { Messages } from '../interfaces/messages.model';
+import Cookies from 'js-cookie';
+
+const authToken: string | undefined = Cookies.get('auth_token');
+
+// Avoir tous les messages
+export async function GetAllMessages(): Promise<Messages[]> {
+  try {
+    const response: AxiosResponse<Messages[]> = await axios.get<Messages[]>(import.meta.env.VITE_BASE_URL + '/message/get/feed', {
+      headers: {
+        Authorization: 'Bearer ' + authToken,
+      },
+    });
+    const messagesFeed: Messages[] = response.data;
+    return messagesFeed;
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      console.log('Aucun message trouvé.');
+    } else {
+      console.error('Erreur lors de la récupération des messages :', error);
+    }
+    throw error;
+  }
+}
+
+// Avoir tous les tags
+export async function GetAllTags(): Promise<AllTagsInterface> {
+  try {
+    const response: AxiosResponse<AllTagsInterface> = await axios.get<AllTagsInterface>(import.meta.env.VITE_BASE_URL + '/tag/getAll', {
+      headers: {
+        Authorization: 'Bearer ' + authToken,
+        Accept: 'application/json',
+      },
+    });
+    const allTags: AllTagsInterface = response.data;
+    return allTags;
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      console.log('Aucun tag trouvé.');
+    } else {
+      console.error("Erreur lors de la récupération des tags de l'utilisateur :", error);
+    }
+    throw error;
+  }
+}
+
+// Avoir les tags utilisateurs
+export async function GetUserTags(): Promise<UserTagsInterface> {
+  try {
+    const response: AxiosResponse<UserTagsInterface> = await axios.get<UserTagsInterface>(import.meta.env.VITE_BASE_URL + '/tagUser/get', {
+      headers: {
+        Authorization: 'Bearer ' + authToken,
+        Accept: 'application/json',
+      },
+    });
+    const tagsUser: UserTagsInterface = response.data;
+    return tagsUser;
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      console.log('Aucun tag trouvé.');
+    } else {
+      console.error("Erreur lors de la récupération des tags de l'utilisateur :", error);
+    }
+    throw error;
+  }
+}

@@ -8,7 +8,7 @@ import { MdDescription } from 'react-icons/md';
 import './index.scss';
 
 // INTERFACES
-import UserInterface from '../../../interfaces/user';
+import UserInterface from '../../../interfaces/user.model';
 
 // CONTEXT
 import User from '../../../contexts/userContext';

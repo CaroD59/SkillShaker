@@ -1,38 +1,46 @@
 import { MdSend } from 'react-icons/md';
 import { useState, useContext, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import axios from 'axios';
+
+// MODELS
+import Tags from '../../../interfaces/tags.model';
 
 // CONTEXT
 import User from '../../../contexts/userContext';
+import { GetUserTags } from '../../../services/api_manager';
 
 export default function Message() {
   const { user } = useContext(User);
   const authToken: string | undefined = Cookies.get('auth_token');
   const [inputValue, setInputValue] = useState<string>('');
-  // const [searchTags, setSearchTags] = useState<string>('');
   const [audience, setAudience] = useState<number[]>([]);
-  // const [className, setClassName] = useState<string>('allTagsSearchBar');
+  const [filteredTags, setFilteredTags] = useState<Tags[]>([]);
+  const [active, setActive] = useState<boolean>(false);
 
   // API
-  const [allTags, setAllTags] = useState<any>([]);
+  const [allTags, setAllTags] = useState<Tags[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  // GET TAGS
   useEffect(() => {
-    if (user) {
-      axios
-        .get(import.meta.env.VITE_BASE_URL + '/tag/getAll', {
-          headers: {
-            Authorization: 'Bearer ' + authToken,
-          },
-        })
-        .catch(() => {
-          setError('Une erreur est survenue...');
-        })
-        .then(async (data: void | any) => {
-          setAllTags(data.data.tags);
-        });
-    }
+    const fetchData = async () => {
+      if (user) {
+        try {
+          const userTags = await GetUserTags();
+
+          const combinedTags = [
+            ...userTags.myTags.map(tag => ({ ...tag, className: 'my-tag-class' })),
+            ...userTags.suggTags.map(tag => ({ ...tag, className: 'suggested-tag-class' })),
+            ...userTags.refusedTags.map(tag => ({ ...tag, className: 'refused-tag-class' })),
+          ];
+          setAllTags(combinedTags);
+        } catch (error) {
+          console.error('Erreur lors de la récupération tags :', error);
+        }
+      }
+    };
+
+    fetchData();
   }, [user, authToken]);
 
   // LOCAL STORAGE
@@ -58,30 +66,78 @@ export default function Message() {
   }
 
   // INPUT VALUE
-
   const handleSuggestionClick = (event: React.MouseEvent<HTMLParagraphElement>) => {
     // TAG
     let word: any = event.currentTarget.innerText;
     word = word.split('\n\n');
     setInputValue((prev: string) => prev + word[0]);
 
+    const lastHashtagIndex = inputValue.lastIndexOf('#');
+    if (lastHashtagIndex !== -1) {
+      const wordsBeforeLastHashtag = inputValue.substring(0, lastHashtagIndex);
+      const replacedInputValue = wordsBeforeLastHashtag + '#' + word[0];
+
+      setInputValue(replacedInputValue);
+      setActive(false);
+    }
     // AUDIENCE
     const audienceNumber = parseInt(word[1]);
-    setAudience([...audience, audienceNumber]);
+    if (!audience.includes(audienceNumber)) {
+      setAudience([...audience, audienceNumber]);
+    }
   };
 
-  // SEARCH ALL TAGS
+  // Poster le hashtag ici dans l'API si il n'existe pas déjà
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+  // On stock les tags dans une variable
+  const wordsAfterHashtag: string[] = [];
+  const words: string[] = inputValue.split(' ');
+
+  words.forEach((word: string) => {
+    if (word.startsWith('#') && !wordsAfterHashtag.includes(word.substring(1))) {
+      wordsAfterHashtag.push(word.substring(1));
+    }
+  });
+
+  // Poster le hashtag ici dans l'API si il n'existe pas déjà
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setInputValue(value);
+
+    if (value.includes('#')) {
+      const filter = value.substring(value.lastIndexOf('#') + 1).toLowerCase();
+      const filteredTags = allTags.filter((tag: any) => tag.name.toLowerCase().startsWith(filter));
+      setFilteredTags(filteredTags);
+    } else {
+      setFilteredTags([]);
+    }
+
+    if (filteredTags.length === 0) {
+      setActive(false);
+    }
+
+    if (value.endsWith('#')) {
+      setActive(true);
+    } else if (!value.includes('#')) {
+      setActive(false);
+    }
+
+    if (value === '') {
+      setAudience([]);
+      setFilteredTags([]);
+      setActive(false);
+      return;
+    }
   };
 
-  // AUDIENCE CALCUL
-
+  // Calcul de l'audience, les audiences sont disponibles dans audience
   const audienceCalcul: number = audience.reduce((acc, number) => acc + number, 0);
 
-  // MOTS - HASHTAGS MIS EN VALEUR
-  console.log(inputValue);
+  // POST MESSAGE
+  const handlePostMessage = (event: any) => {
+    console.log(inputValue);
+  };
 
   return (
     <>
@@ -92,30 +148,32 @@ export default function Message() {
             name="message"
             id="SkillShaker-Send-Message"
             placeholder="Rédiger un message..."
-            onChange={handleSearchChange}
+            onChange={handleInputChange}
             value={inputValue}
           />{' '}
-          <div className={inputValue.endsWith('#') ? 'allTagsSearchBar active' : 'allTagsSearchBar'}>
-            {allTags && inputValue.endsWith('#')
-              ? allTags.map((tag: any) => {
-                  return (
-                    <div
-                      onClick={handleSuggestionClick}
-                      key={tag.id}
-                    >
-                      <p>
-                        <span className="tagName">{tag.name}</span>
-                      </p>
-                      <p>
-                        <span className="audience">{tag.audience}</span>
-                      </p>
-                    </div>
-                  );
-                })
+          <div
+            id="SearchBar"
+            className={active ? 'allTagsSearchBar active' : 'allTagsSearchBar'}
+          >
+            {active
+              ? filteredTags.map((tag: any) => (
+                  <div
+                    onClick={handleSuggestionClick}
+                    key={tag.id}
+                    className={tag.className}
+                  >
+                    <p>
+                      <span className="tagName">{tag.name}</span>
+                    </p>
+                    <p>
+                      <span className="audience">{tag.audience}</span>
+                    </p>
+                  </div>
+                ))
               : error}
           </div>
         </div>
-        <MdSend />
+        <MdSend onClick={handlePostMessage} />
       </div>
       <div className="audience-bloc">Audience potentiel total : {audience.length > 0 ? audienceCalcul : 0}</div>
     </>

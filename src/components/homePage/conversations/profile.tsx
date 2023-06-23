@@ -6,7 +6,7 @@ import { useState, useContext, useEffect, useRef } from 'react';
 import { HiDotsVertical } from 'react-icons/hi';
 
 // INTERFACES
-import UserInterface from '../../../interfaces/user';
+import UserInterface from '../../../interfaces/user.model';
 
 // CONTEXT
 import User from '../../../contexts/userContext';
