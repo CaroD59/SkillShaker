@@ -174,7 +174,8 @@
       overflow-y: scroll;
       overflow-x: hidden;
       height: 100%;
-      width: 600px;
+      padding: 0px 20px 0px 20px;
+      width: 650px;
       .message {
         width: 100%;
         .msg {
@@ -283,9 +284,11 @@
               }
               .menuMessage {
                 position: absolute;
+                top: 23px;
+                z-index: 9999;
                 font-size: 12px;
                 background-color: $skillshaker-red-color;
-                left: 60px;
+                left: -173px;
                 padding: 10px;
                 color: $light;
                 font-weight: 700;
@@ -434,6 +437,21 @@
       a {
         color: $light;
         text-decoration: none;
+      }
+    }
+  }
+}
+
+// RESPONSIVE
+@media screen and (max-width: 1210px) {
+  #SkillShaker-HP {
+    .HP {
+      #messagesUsers {
+        width: 580px;
+      }
+      #conversations,
+      .tags {
+        width: 200px;
       }
     }
   }
