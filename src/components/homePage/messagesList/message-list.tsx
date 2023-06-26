@@ -9,7 +9,7 @@ import { GetAllMessages } from '../../../services/api_manager';
 
 // CONTEXT
 import User from '../../../contexts/userContext';
-import { Messages } from 'interfaces/messages.model';
+import { AllMessages } from 'interfaces/messages.model';
 
 export default function MessagesList() {
   const { user } = useContext(User);
@@ -49,7 +49,7 @@ export default function MessagesList() {
   }, [ref]);
 
   //API
-  const [messages, setMessages] = useState<Messages[]>([]);
+  const [messages, setMessages] = useState<AllMessages[]>([]);
   const [visibleMessages, setVisibleMessages] = useState<number>(1);
   const handleShowMore: () => void = () => {
     setVisibleMessages(visibleMessages + 1);
@@ -62,9 +62,11 @@ export default function MessagesList() {
       if (user) {
         try {
           const messagesFeed = await GetAllMessages();
-          if (messagesFeed.length > 0) {
-            setMessages(messagesFeed);
-          }
+
+          const combinedMessage = [...messagesFeed.messages.map(msg => ({ ...msg }))];
+
+          console.log(combinedMessage, 'Combined Messages');
+          setMessages(combinedMessage);
         } catch (error) {
           console.error('Erreur lors des messages :', error);
         }

@@ -8,25 +8,29 @@
 
 /* Styles pour la barre de défilement */
 ::-webkit-scrollbar {
-  width: 8px; /* Largeur de la barre de défilement */
+  width: 5px; /* Largeur de la barre de défilement */
 }
 
 /* Styles pour le track (fond) */
 ::-webkit-scrollbar-track {
-  background: $light-mode; /* Couleur du fond */
+  background: transparent; /* Couleur du fond */
+  border-radius: 5px; /* Bords arrondis */
 }
 
 /* Styles pour le thumb (poignée) */
 ::-webkit-scrollbar-thumb {
   background: $skillshaker-red-color;
+  border-radius: 5px; /* Bords arrondis */
+
   &:hover {
     background: $skillshaker-dark-red;
   }
 }
 
 #App {
+  overflow: hidden;
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   font-family: 'OpenSans';
   padding: 0px 20px 0px 20px;
 }
@@ -53,11 +57,10 @@
   color: $grey;
   background-color: $dark-mode;
   #LightDarkMode {
-    box-shadow: 0px 0px 13px -3px $light;
+    background-color: $dark;
     border-left: 1px solid $dark-grey;
     border-bottom: 1px solid $dark-grey;
     border-right: 1px solid $dark-grey;
-    background-color: $dark-mode;
     .mode {
       color: $light;
     }
@@ -101,7 +104,7 @@
       .messageUser,
       .tags,
       .conversationsSection {
-        box-shadow: 0px 0px 13px -3px $light;
+        background-color: $dark;
         border: 1px solid $dark;
         .list {
           ul {
@@ -183,7 +186,6 @@
 #App.light-mode {
   background-color: $light-mode;
   #LightDarkMode {
-    box-shadow: 0px 0px 13px -3px $dark;
     border-left: 1px solid $grey;
     border-bottom: 1px solid $grey;
     border-right: 1px solid $grey;
@@ -220,7 +222,6 @@
       .messageUser,
       .tags,
       .conversationsSection {
-        box-shadow: 0px 0px 13px -3px $dark;
         border: 1px solid $grey;
         .list {
           ul {

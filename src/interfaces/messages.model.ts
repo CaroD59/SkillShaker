@@ -1,4 +1,4 @@
-export default interface MessageInterface {
+export interface MessageInterface {
   id: number;
   abuse: any;
   message: string;
@@ -29,6 +29,6 @@ export default interface MessageInterface {
   audience: number;
 }
 
-export interface Messages {
+export interface AllMessages {
   messages: MessageInterface[];
 }

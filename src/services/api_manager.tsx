@@ -1,19 +1,20 @@
 import axios, { AxiosResponse } from 'axios';
 import { AllTagsInterface, UserTagsInterface } from '../interfaces/tags.model';
-import { Messages } from '../interfaces/messages.model';
+import { AllMessages } from '../interfaces/messages.model';
 import Cookies from 'js-cookie';
 
 const authToken: string | undefined = Cookies.get('auth_token');
 
 // Avoir tous les messages
-export async function GetAllMessages(): Promise<Messages[]> {
+export async function GetAllMessages(): Promise<AllMessages> {
   try {
-    const response: AxiosResponse<Messages[]> = await axios.get<Messages[]>(import.meta.env.VITE_BASE_URL + '/message/get/feed', {
+    const response: AxiosResponse<AllMessages> = await axios.get<AllMessages>(import.meta.env.VITE_BASE_URL + '/message/get/feed', {
       headers: {
         Authorization: 'Bearer ' + authToken,
       },
     });
-    const messagesFeed: Messages[] = response.data;
+    const messagesFeed: AllMessages = response.data;
+    console.log(messagesFeed, 'Messages API');
     return messagesFeed;
   } catch (error: any) {
     if (error.response && error.response.status === 404) {
