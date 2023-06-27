@@ -3,13 +3,13 @@ import { BsPeopleFill } from 'react-icons/bs';
 import { RiMessage2Fill } from 'react-icons/ri';
 import Cookies from 'js-cookie';
 import Menu from './menuMessage';
-import Message from './message';
 import { useState, useContext, useEffect, useRef } from 'react';
 import { GetAllMessages } from '../../../services/api_manager';
 
 // CONTEXT
 import User from '../../../contexts/userContext';
 import { AllMessages } from 'interfaces/messages.model';
+import TitleHomePage from '../titleHome/titleHomePage';
 
 export default function MessagesList() {
   const { user } = useContext(User);
@@ -50,7 +50,7 @@ export default function MessagesList() {
 
   //API
   const [messages, setMessages] = useState<AllMessages[]>([]);
-  const [visibleMessages, setVisibleMessages] = useState<number>(1);
+  const [visibleMessages, setVisibleMessages] = useState<number>(10);
   const handleShowMore: () => void = () => {
     setVisibleMessages(visibleMessages + 1);
   };
@@ -66,7 +66,7 @@ export default function MessagesList() {
           const combinedMessage = [...messagesFeed.messages.map(msg => ({ ...msg }))];
 
           console.log(combinedMessage, 'Combined Messages');
-          setMessages(combinedMessage);
+          // setMessages(combinedMessage);
         } catch (error) {
           console.error('Erreur lors des messages :', error);
         }
@@ -100,10 +100,8 @@ export default function MessagesList() {
 
   return (
     <>
+      <TitleHomePage title={"Fil d'actualités"} />
       <div id="messagesUsers">
-        <div className="message">
-          <Message />
-        </div>
         {messages.length > 0 ? (
           messages.slice(0, visibleMessages).map((message: any) => {
             const msg = message.message;
@@ -114,7 +112,7 @@ export default function MessagesList() {
                   key={`message-${message.id}`}
                   ref={ref}
                 >
-                  <div className="profilePic">
+                  <div className="profilPic">
                     <img
                       src="https://picsum.photos/70/70"
                       alt=""

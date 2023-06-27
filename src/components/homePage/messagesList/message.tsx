@@ -9,7 +9,11 @@ import Tags from '../../../interfaces/tags.model';
 import User from '../../../contexts/userContext';
 import { GetUserTags } from '../../../services/api_manager';
 
-export default function Message() {
+export interface WriteTagProps {
+  placeholder: string;
+}
+
+export default function Message({ placeholder }: WriteTagProps) {
   const { user } = useContext(User);
   const authToken: string | undefined = Cookies.get('auth_token');
   const [inputValue, setInputValue] = useState<string>('');
@@ -142,36 +146,32 @@ export default function Message() {
   return (
     <>
       <div className="msg">
-        <div>
-          <input
-            type="text"
-            name="message"
-            id="SkillShaker-Send-Message"
-            placeholder="Rédiger un message..."
-            onChange={handleInputChange}
-            value={inputValue}
-          />{' '}
-          <div
-            id="SearchBar"
-            className={active ? 'allTagsSearchBar active' : 'allTagsSearchBar'}
-          >
-            {active
-              ? filteredTags.map((tag: any) => (
-                  <div
-                    onClick={handleSuggestionClick}
-                    key={tag.id}
-                    className={tag.className}
-                  >
-                    <p>
-                      <span className="tagName">{tag.name}</span>
-                    </p>
-                    <p>
-                      <span className="audience">{tag.audience}</span>
-                    </p>
-                  </div>
-                ))
-              : error}
-          </div>
+        <input
+          type="text"
+          name="message"
+          id="SkillShaker-Send-Message"
+          placeholder={placeholder}
+          onChange={handleInputChange}
+          value={inputValue}
+        />
+        <div
+          id="SearchBar"
+          className={active ? 'allTagsSearchBar active' : 'allTagsSearchBar'}
+        >
+          {active
+            ? filteredTags.map((tag: any) => (
+                <div
+                  onClick={handleSuggestionClick}
+                  key={tag.id}
+                  className={tag.className}
+                >
+                  <p>
+                    <span className="tagName">{tag.name}</span>
+                  </p>
+                  <div className="audience">{tag.audience}</div>
+                </div>
+              ))
+            : error}
         </div>
         <MdSend onClick={handlePostMessage} />
       </div>

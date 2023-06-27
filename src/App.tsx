@@ -9,6 +9,7 @@ import Password from './components/authentification/password';
 import HomePage from './components/homePage';
 import { MdOutlineNightlight, MdOutlineLightMode } from 'react-icons/md';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import './app.scss';
 
 // CONTEXTS
@@ -73,7 +74,7 @@ export default function App() {
               {isDarkMode ? <MdOutlineLightMode /> : <MdOutlineNightlight />}
             </button>
           </div>
-          <Header />
+          {!authToken ? <Header /> : null}
           <Routes>
             <Route
               path="/"
@@ -87,7 +88,6 @@ export default function App() {
               path="/login/identity/forgotten-password"
               element={<Password />}
             />
-            {/* <Route path="/hp" element={<HomePage />} /> */}
           </Routes>
         </Router>
       </User.Provider>

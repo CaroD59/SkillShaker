@@ -1,462 +1,328 @@
 @import '../../variables';
 
 #SkillShaker-HP {
-  .HP {
-    padding-top: 50px;
-    max-width: 1320px;
-    width: 100%;
-    height: 600px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    #conversations {
-      width: 220px;
-      .profileSection {
-        position: relative;
-        width: 100%;
-        border-radius: 8px;
-        .background-profile {
-          width: 100%;
-          position: absolute;
-          height: 60px;
-          border-top-left-radius: 8px;
-          border-top-right-radius: 8px;
-        }
-        .profile.user {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          padding: 20px 0px 20px 0px;
-          text-align: center;
-          .picture {
-            margin: 0 auto;
-            padding-bottom: 15px;
-            img {
-              border-radius: 50px;
-            }
-          }
-          .informationsSection {
-            .informations {
-              .name {
-                font-size: 16px;
-                font-weight: 700;
-                margin-bottom: 15px;
-              }
-            }
-            .email {
-              font-size: 12px;
-            }
-          }
-          .profileIcon {
-            margin: 0px 0px 0px 0px;
-            position: absolute;
-            right: 0;
-            top: 5px;
-            svg {
-              width: 25px;
-              height: 35px;
-              cursor: pointer;
-            }
-            .menuConversations,
-            .menuProfile {
-              z-index: 9999;
-              position: absolute;
-              background-color: $skillshaker-red-color;
-              left: 13px;
-              text-align: left;
-              padding: 5px;
-              font-weight: 700;
-            }
-            li {
-              padding: 10px;
-              color: $light;
-              a,
-              button {
-                cursor: pointer;
-                color: $light;
-                text-decoration: none;
-                font-weight: 700;
-                border: none;
-                font-size: 12px;
-                padding: 0;
-                background-color: $skillshaker-red-color;
-              }
-            }
-          }
-        }
-      }
-      .conversationsSection {
-        overflow-y: scroll;
-        overflow-x: hidden;
-        margin-top: 50px;
-        border-radius: 8px;
-        h2 {
-          margin: 15px 0px 15px 0px;
-          font-weight: 700;
-          font-size: 16px;
-          text-align: center;
-        }
-        .list {
-          ul {
-            li {
-              padding: 15px 5px 15px 5px;
-              .profile {
-                margin-bottom: 15px;
-                padding-bottom: 10px;
-                position: relative;
-                display: flex;
-                .picture {
-                  img {
-                    border-radius: 50px;
-                  }
-                }
-                .informationsSection {
-                  padding-left: 10px;
-                  width: 100%;
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  .informations {
-                    font-size: 12px;
-                    .name {
-                      font-weight: 700;
-                      padding-bottom: 5px;
-                    }
-                    .tags-conversations {
-                      padding-bottom: 5px;
-                      color: $skillshaker-red-color;
-                    }
-                  }
-                  .profileIcon {
-                    position: absolute;
-                    right: 0;
-                    svg {
-                      cursor: pointer;
-                    }
-                    .menuConversations {
-                      width: 10rem;
-                      li {
-                        cursor: pointer;
-                      }
-                    }
-                    .menuConversations,
-                    .menuProfile {
-                      font-size: 12px;
-                      position: absolute;
-                      background-color: $skillshaker-red-color;
-                      left: 7px;
-                      text-align: left;
-                      padding: 5px;
-                      font-weight: 700;
-                    }
-                    li {
-                      padding: 10px;
-                      color: $light;
-                      a,
-                      button {
-                        cursor: pointer;
-                        color: $light;
-                        text-decoration: none;
-                        font-weight: 700;
-                        border: none;
-                        font-size: 18px;
-                        padding: 0;
-                        background-color: $skillshaker-red-color;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    #messagesUsers {
-      overflow-y: scroll;
-      overflow-x: hidden;
+  .full-height-container {
+    height: 90vh;
+    .full-height-column {
       height: 100%;
-      padding: 0px 20px 0px 20px;
-      width: 650px;
-      .message {
-        width: 100%;
-        .msg {
-          display: flex;
-          justify-content: end;
-          align-items: center;
-          width: 100%;
-          div {
-            width: 98%;
+    }
+    .footer-row {
+      height: 10vh;
+      .footer {
+        z-index: 1;
+        text-align: center;
+        padding: 15px;
+        border-top: 1px solid $grey;
+        padding: 0px;
+        .profil {
+          padding: 15px;
+          border-right: 1px solid $grey;
+          .user {
+            display: flex;
+            justify-content: space-between;
+            .picture {
+              img {
+                border-radius: 50px;
+              }
+            }
+            .informationsSection {
+              display: flex;
+              align-items: center;
+              .name {
+                font-weight: $medium;
+              }
+            }
+            .profilIcon {
+              position: relative;
+              svg {
+                cursor: pointer;
+              }
+              .menuProfil {
+                background-color: $skillshaker-red-color;
+                position: absolute;
+                bottom: 55px;
+                left: 7px;
+                z-index: 9999;
+                li {
+                  padding: 10px;
+                  button {
+                    color: $light;
+                    border: none;
+                    background-color: transparent;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .write-tag {
+          padding: 15px;
+          .msg {
+            display: flex;
+            align-items: center;
             position: relative;
             input {
-              width: 95%;
-              height: 56px;
-              margin-right: 15px;
+              width: 80%;
+              border-radius: 10px;
               border: 1px solid $grey;
-              border-radius: 8px;
+              background-color: $background-input;
+              padding: 10px;
               outline: none;
-              padding-left: 15px;
-
-              &::placeholder {
-                font-weight: 400;
-                font-size: 16px;
-                line-height: 25px;
-                color: $dark-grey;
-              }
             }
             .allTagsSearchBar {
               position: absolute;
               z-index: 9999;
               left: 3px;
               &.active {
-                height: 220px;
+                height: 100px;
+                bottom: 44px;
+                width: 80%;
                 overflow-y: scroll;
                 overflow-x: hidden;
+                background-color: $light;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
                 border-bottom-right-radius: 5px;
                 border-bottom-left-radius: 5px;
+                border-top: 1px solid black;
+                border-left: 1px solid black;
+                border-right: 1px solid black;
+                .my-tag-class,
+                .suggested-tag-class,
+                .refused-tag-class {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 10px;
+                  cursor: pointer;
+                  .tagName {
+                    margin-right: 10px;
+                  }
+                  .audience {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background-color: $skillshaker-red-color;
+                    color: $light;
+                    text-align: center;
+                    line-height: 30px;
+                  }
+                }
                 .refused-tag-class,
                 .suggested-tag-class {
                   opacity: 0.5;
                 }
-
-                div {
-                  padding: 10px 0px 10px 10px;
-                  cursor: pointer;
-                  grid-template-columns: repeat(2, 1fr);
-                  grid-gap: 10px;
-                  text-align: center;
-                  display: grid;
-                  align-items: center;
-                  .audience {
-                    font-weight: 700;
-                    text-shadow: 0px 0px 2px $skillshaker-red-color;
-                  }
-                  &:hover {
-                    background-color: $skillshaker-red-color;
-                  }
-                }
               }
             }
+            svg {
+              margin-left: 15px;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              background-color: $skillshaker-red-color;
+              color: $light;
+              text-align: center;
+              line-height: 30px;
+              padding: 5px;
+              cursor: pointer;
+            }
           }
-          svg {
-            color: $light;
-            background-color: $skillshaker-red-color;
-            padding: 10px;
-            font-size: 18px;
-            border-radius: 50px;
-            width: 40px;
-            height: auto;
-            cursor: pointer;
-          }
-        }
-        .audience-bloc {
-          padding: 10px 10px;
-          font-size: 10px;
-        }
-      }
-      .messageUser {
-        margin: 45px 0px 45px 0px;
-        display: flex;
-        padding: 10px;
-        border-radius: 8px;
-        .profilePic {
-          margin-right: 15px;
-          img {
-            border-radius: 50px;
-          }
-        }
-        .messageBody {
-          width: 100%;
-          .infosUser {
+          .audience-bloc {
+            margin-top: 10px;
+            font-size: $short-size;
             display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 15px;
-            .infoUserName {
-              font-size: 16px;
-            }
-            .hourMessage {
-              position: relative;
-              font-size: 16px;
-              span {
-                svg {
-                  cursor: pointer;
-                }
-              }
-              .menuMessage {
-                position: absolute;
-                top: 23px;
-                z-index: 9999;
-                font-size: 12px;
-                background-color: $skillshaker-red-color;
-                left: -173px;
-                padding: 10px;
-                color: $light;
-                font-weight: 700;
-                width: 13rem;
-                li {
-                  cursor: pointer;
-                  padding: 10px;
-                }
-              }
-            }
-          }
-          .fullMessage {
-            text-align: justify;
-            margin-bottom: 15px;
-            font-size: 15px;
-            .hashtag {
-              color: $skillshaker-red-color;
-              font-weight: 700;
-            }
-          }
-          .peopleTags {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 15px;
-            .peopleFollowing {
-              color: $skillshaker-red-color;
-              svg {
-                font-size: 15px;
-              }
-            }
-            .sendMessage {
-              color: $light-blue;
-              svg {
-                font-size: 18px;
-                cursor: pointer;
-              }
-            }
           }
         }
-      }
-      button.load-more {
-        background-color: $skillshaker-red-color;
-        margin: 0 auto;
-        display: block;
-        border: none;
-        color: $light;
-        font-size: 15px;
-        padding: 5px 15px;
-        border-radius: 10px;
-        cursor: pointer;
-        &:hover {
-        }
-      }
-      .no-new-messages {
-        text-align: center;
       }
     }
-
     .tags {
-      overflow-y: scroll;
-      overflow-x: hidden;
-      height: 100%;
-      width: 220px;
-      padding: 0px 10px 0px 10px;
-      border-radius: 8px;
-      h2 {
-        font-weight: 700;
-        font-size: 16px;
-        text-align: center;
-        padding: 10px 0px 25px 0px;
+      border-right: 1px solid $grey;
+      #SkillShaker-Header {
+        max-width: auto;
+        justify-content: center;
       }
-
-      .suggestedTags,
-      .myTags,
-      .refusedTags {
-        margin-top: 5px;
-        padding-top: 15px;
-        padding-bottom: 25px;
-        .titlesTags {
-          display: flex;
-          justify-content: space-between;
-          font-weight: 700;
-          font-size: 12px;
-          line-height: 25px;
-          p {
+      h2 {
+        margin: 15px 0px 15px 0px;
+        font-weight: $medium;
+        font-size: $medium-size;
+      }
+      .tags-gestion {
+        .search-tags {
+          width: 100%;
+          margin-bottom: 15px;
+          border-radius: 10px;
+          border: 1px solid $grey;
+          background-color: $background-input;
+          padding: 10px;
+          outline: none;
+        }
+        .myTags.isOpenTags,
+        .refusedTags.isOpenTags {
+          height: 300px;
+        }
+        .myTags.isOpenTags {
+          margin-bottom: 50px;
+        }
+        .myTags,
+        .refusedTags {
+          padding-right: 5px;
+          overflow-y: scroll;
+          overflow-x: hidden;
+          height: 100%;
+          .titlesTags {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-weight: $medium;
+            font-size: $light-size;
             svg {
               cursor: pointer;
             }
           }
+          .tag-content {
+            display: flex;
+            justify-content: space-between;
+            border-radius: 10px;
+            border: 1px solid $dark-mode;
+            margin: 15px 15px 15px 0px;
+            padding: 15px 20px;
+            position: relative;
+            .pop-notif {
+              position: absolute;
+              left: 250px;
+              bottom: 30px;
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              background-image: linear-gradient(to right, #673ab7, #ba149f, #ec0077, #ff3548, #ff6f00);
+              color: #ffffff;
+              text-align: center;
+              line-height: 30px;
+            }
+            .check-tag {
+              color: $tags;
+            }
+            .bin-tag {
+              color: $skillshaker-red-color;
+            }
+          }
         }
-        .tag-content {
+        .myTags {
+          .tag-content {
+            .bin-tag {
+              cursor: pointer;
+            }
+            .check-tag {
+              opacity: 0.5;
+            }
+          }
+        }
+        .refusedTags {
+          .tag-content {
+            .bin-tag {
+              opacity: 0.5;
+            }
+            .check-tag {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    .conversations {
+    }
+    .messages {
+      overflow: hidden;
+      padding: 0px;
+      border-left: 1px solid $grey;
+      .title-home-page {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 20px;
+        border-bottom: 1px solid $grey;
+        box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.3);
+        .title.home-page {
+          font-weight: $medium;
+          font-size: 24px;
+        }
+        .notifications {
+          font-size: $big-size;
+        }
+      }
+      #messagesUsers {
+        height: 100%;
+        padding: 10px;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .messageUser {
           display: flex;
           justify-content: space-between;
-          border: 1px solid $dark-mode;
-          font-size: 12px;
-          border-radius: 8px;
-          padding: 10px 16px;
-          margin-top: 25px;
-          .bin-tag {
-            color: $skillshaker-red-color;
-            cursor: pointer;
+          width: 800px;
+          margin: 15px auto;
+          .profilPic {
+            margin-right: 15px;
+            img {
+              border-radius: 50px;
+            }
           }
-          .text-tag {
-          }
-          .check-tag {
-            color: $tags;
-            cursor: pointer;
-          }
-        }
-      }
-      .suggestedTags {
-        padding-top: 35px;
-      }
-      .refusedTags {
-        border: none;
-      }
-      .myTags {
-        .tag-content {
-          .check-tag {
-            cursor: default;
-            opacity: 0.5;
-          }
-        }
-      }
-    }
-  }
-  .link-to-connexion {
-    max-width: 300px;
-    padding: 220px 0px 220px 0px;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    button {
-      border: none;
-      width: 100%;
-      font-size: 1.3em;
-      font-weight: 700;
-      background-color: $blue;
-      padding: 10px;
-      margin-bottom: 25px;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0px 3px 8px -5px rgba(0, 0, 0, 0.2);
-      a {
-        color: $light;
-        text-decoration: none;
-      }
-    }
-  }
-}
+          .messageBody {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            .infosUser {
+              font-weight: $medium;
+              margin-bottom: 10px;
+              display: flex;
+              justify-content: space-between;
+              .hourMessage {
+                position: relative;
+                .menuMessage {
+                  position: absolute;
+                  top: 25px;
+                  left: 52px;
+                  background-color: $skillshaker-red-color;
+                  z-index: 9999;
 
-// RESPONSIVE
-@media screen and (max-width: 1210px) {
-  #SkillShaker-HP {
-    .HP {
-      #messagesUsers {
-        width: 580px;
-      }
-      #conversations,
-      .tags {
-        width: 200px;
+                  li {
+                    font-weight: normal;
+                    padding: 10px;
+                    color: $light;
+                    width: 200px;
+                    cursor: pointer;
+                  }
+                }
+                svg {
+                  cursor: pointer;
+                }
+              }
+            }
+            .fullMessage {
+              margin-bottom: 15px;
+              .hashtag {
+                color: $skillshaker-red-color;
+                font-weight: 700;
+              }
+            }
+            .peopleTags {
+              .peopleFollowing {
+                color: $skillshaker-red-color;
+                font-weight: 700;
+              }
+            }
+          }
+        }
+        .load-more {
+          width: 200px;
+          background-color: $skillshaker-red-color;
+          border: none;
+          color: $light;
+          padding: 10px 20px;
+        }
       }
     }
   }

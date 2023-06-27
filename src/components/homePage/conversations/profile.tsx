@@ -103,19 +103,31 @@ export default function Profile() {
 
   return (
     <>
-      <div className="background-profile"></div>
       <div
-        className="profile user"
+        className="user"
         ref={ref}
       >
+        <div className="picture">
+          <img
+            src="https://picsum.photos/70/70"
+            alt=""
+            className="profilePicture"
+          />
+        </div>
+        <div className="informationsSection">
+          <div className="informations">
+            <p className="name">{infos ? infos.data.firstname : 'Chargement...'}</p>
+            <p className="email">{infos ? infos.data.email : 'Chargement...'}</p>
+          </div>
+        </div>
         <div
-          className="profileIcon"
+          className="profilIcon"
           onClick={() => setOpenMenu(prev => !prev)}
         >
           <HiDotsVertical />
           {openMenu && (
             <>
-              <ul className="menuProfile">
+              <ul className="menuProfil">
                 <li>
                   <button
                     type="button"
@@ -135,19 +147,6 @@ export default function Profile() {
               </ul>
             </>
           )}
-        </div>
-        <div className="picture">
-          <img
-            src="https://picsum.photos/70/70"
-            alt=""
-            className="profilePicture"
-          />
-        </div>
-        <div className="informationsSection">
-          <div className="informations">
-            <p className="name">{infos ? infos.data.firstname : 'Chargement...'}</p>
-            <p className="email">{infos ? infos.data.description : 'Chargement...'}</p>
-          </div>
         </div>
       </div>
       {isModalOpen && <Modal onClose={handleModalClose} />}

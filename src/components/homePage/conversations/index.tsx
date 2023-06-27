@@ -1,15 +1,13 @@
 import Profile from './profile';
-import List from './list';
+import List from './conversationsList';
 
 export default function Conversations() {
   return (
-    <div id="conversations">
-      <div className="profileSection">
+    <>
+      {/* <div className="profileSection">
         <Profile />
-      </div>
-      <div className="conversationsSection">
-        <List />
-      </div>
-    </div>
+      </div> */}
+      <List />
+    </>
   );
 }

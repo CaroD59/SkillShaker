@@ -12,11 +12,8 @@ import User from '../../../contexts/userContext';
 export default function Refused() {
   // CONTEXT
   const { user } = useContext(User);
-
   const authToken: string | undefined = Cookies.get('auth_token');
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -57,7 +54,7 @@ export default function Refused() {
   }
 
   return (
-    <div className="refusedTags">
+    <div className={isOpen ? 'refusedTags isOpenTags' : 'refusedTags'}>
       <div className="titlesTags">
         <h3>Tags refusés ({tags.length})</h3>
         <p onClick={toggleOpen}>{isOpen ? <AiOutlineMinus /> : <HiOutlinePlus />}</p>

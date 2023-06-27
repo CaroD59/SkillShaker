@@ -1,10 +1,10 @@
-import User from '../../contexts/userContext';
 import Cookies from 'js-cookie';
 import MessagesList from './messagesList/message-list';
 import Conversations from './conversations';
 import Tags from './tags';
+import NavBar from './navBar/navBar';
 import { NavLink } from 'react-router-dom';
-import { useContext } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import './index.scss';
 
 export default function HomePage() {
@@ -13,11 +13,39 @@ export default function HomePage() {
   return (
     <article id="SkillShaker-HP">
       {authToken ? (
-        <section className="HP">
-          <Conversations />
-          <MessagesList />
-          <Tags />
-        </section>
+        <Container
+          fluid
+          className="full-height-container"
+        >
+          <Row className="full-height-column">
+            <Col
+              sm={2}
+              className="tags full-height-column"
+            >
+              <Tags />
+            </Col>
+            <Col
+              sm={2}
+              className="conversations full-height-column"
+            >
+              <Conversations />
+            </Col>
+            <Col
+              sm={true}
+              className="messages full-height-column"
+            >
+              <MessagesList />
+            </Col>
+          </Row>
+          <Row className="footer-row">
+            <Col
+              className="footer"
+              xs={12}
+            >
+              <NavBar />
+            </Col>
+          </Row>
+        </Container>
       ) : (
         <section className="link-to-connexion">
           <button>

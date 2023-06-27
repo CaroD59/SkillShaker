@@ -2,6 +2,7 @@ import { AiOutlineMinus } from 'react-icons/ai';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { IoTrashBin } from 'react-icons/io5';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
+import Notification from '../notifications/notification';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
@@ -12,11 +13,8 @@ import User from '../../../contexts/userContext';
 export default function Accepted() {
   // CONTEXT
   const { user } = useContext(User);
-
   const authToken: string | undefined = Cookies.get('auth_token');
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -57,7 +55,7 @@ export default function Accepted() {
   }
 
   return (
-    <div className="myTags">
+    <div className={isOpen ? 'myTags isOpenTags' : 'myTags'}>
       <div className="titlesTags">
         <h3>Mes tags ({tags.length})</h3>
         <p onClick={toggleOpen}>{isOpen ? <AiOutlineMinus /> : <HiOutlinePlus />}</p>
@@ -69,6 +67,7 @@ export default function Accepted() {
               className="tag-content"
               key={tag.id}
             >
+              <Notification numberOfNotifications={2} />
               <div className="bin-tag">
                 <IoTrashBin />
               </div>
