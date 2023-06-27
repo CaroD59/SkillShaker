@@ -60,6 +60,7 @@
             }
             .menuConversations,
             .menuProfile {
+              z-index: 9999;
               position: absolute;
               background-color: $skillshaker-red-color;
               left: 13px;
@@ -135,6 +136,9 @@
                     }
                     .menuConversations {
                       width: 10rem;
+                      li {
+                        cursor: pointer;
+                      }
                     }
                     .menuConversations,
                     .menuProfile {
@@ -294,6 +298,7 @@
                 font-weight: 700;
                 width: 13rem;
                 li {
+                  cursor: pointer;
                   padding: 10px;
                 }
               }

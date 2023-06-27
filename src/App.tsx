@@ -7,7 +7,6 @@ import Login from './components/authentification/login';
 import Register from './components/authentification/register';
 import Password from './components/authentification/password';
 import HomePage from './components/homePage';
-import Footer from '@components/templates/footer';
 import { MdOutlineNightlight, MdOutlineLightMode } from 'react-icons/md';
 import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
@@ -90,7 +89,6 @@ export default function App() {
             />
             {/* <Route path="/hp" element={<HomePage />} /> */}
           </Routes>
-          <Footer />
         </Router>
       </User.Provider>
     </div>
