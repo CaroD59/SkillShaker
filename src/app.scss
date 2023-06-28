@@ -5,21 +5,18 @@
 }
 
 // SCROLLBAR
-/* Styles pour la barre de défilement */
 ::-webkit-scrollbar {
-  width: 5px; /* Largeur de la barre de défilement */
+  width: 5px;
 }
 
-/* Styles pour le track (fond) */
 ::-webkit-scrollbar-track {
-  background: transparent; /* Couleur du fond */
-  border-radius: 5px; /* Bords arrondis */
+  background: transparent;
+  border-radius: 5px;
 }
 
-/* Styles pour le thumb (poignée) */
 ::-webkit-scrollbar-thumb {
   background: $skillshaker-red-color;
-  border-radius: 5px; /* Bords arrondis */
+  border-radius: 5px;
 
   &:hover {
     background: $skillshaker-dark-red;
@@ -37,10 +34,8 @@
 #LightDarkMode {
   font-size: 25px;
   position: absolute;
-  left: 467px;
-  padding: 10px 50px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  padding: 5px;
+  left: 0;
   .mode {
     background-color: transparent;
     border: none;
@@ -54,10 +49,7 @@
   color: $grey;
   background-color: $dark-mode;
   #LightDarkMode {
-    background-color: $dark;
-    border-left: 1px solid $dark-grey;
-    border-bottom: 1px solid $dark-grey;
-    border-right: 1px solid $dark-grey;
+    background-color: $dark-mode;
     .mode {
       color: $light;
     }
@@ -100,9 +92,6 @@
 #App.light-mode {
   background-color: $light-mode;
   #LightDarkMode {
-    border-left: 1px solid $grey;
-    border-bottom: 1px solid $grey;
-    border-right: 1px solid $grey;
     background-color: $light-mode;
   }
   #SkillShaker-HP {

@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { AllTagsInterface, UserTagsInterface } from '../interfaces/tags.model';
-import { AllMessages } from '../interfaces/messages.model';
+import { AllMessages, MessageInterface } from '../interfaces/messages.model';
 import Cookies from 'js-cookie';
 
 const authToken: string | undefined = Cookies.get('auth_token');
@@ -14,7 +14,6 @@ export async function GetAllMessages(): Promise<AllMessages> {
       },
     });
     const messagesFeed: AllMessages = response.data;
-    console.log(messagesFeed, 'Messages API');
     return messagesFeed;
   } catch (error: any) {
     if (error.response && error.response.status === 404) {

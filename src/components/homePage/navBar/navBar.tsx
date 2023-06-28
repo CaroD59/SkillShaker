@@ -10,13 +10,14 @@ export default function NavBar() {
     >
       <Row className="full-height-column">
         <Col
-          sm={2}
+          lg={3}
+          xl={2}
           className="profil"
         >
           <Profile />
         </Col>
         <Col
-          sm={true}
+          lg={true}
           className="write-tag"
         >
           <Message placeholder={'Rédiger un #tag'} />

@@ -19,19 +19,21 @@ export default function HomePage() {
         >
           <Row className="full-height-column">
             <Col
-              sm={2}
+              lg={3}
+              xl={2}
               className="tags full-height-column"
             >
               <Tags />
             </Col>
             <Col
-              sm={2}
+              lg={3}
+              xl={2}
               className="conversations full-height-column"
             >
               <Conversations />
             </Col>
             <Col
-              sm={true}
+              lg={true}
               className="messages full-height-column"
             >
               <MessagesList />
@@ -40,7 +42,7 @@ export default function HomePage() {
           <Row className="footer-row">
             <Col
               className="footer"
-              xs={12}
+              lg={12}
             >
               <NavBar />
             </Col>

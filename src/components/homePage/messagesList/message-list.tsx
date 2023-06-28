@@ -8,8 +8,9 @@ import { GetAllMessages } from '../../../services/api_manager';
 
 // CONTEXT
 import User from '../../../contexts/userContext';
-import { AllMessages } from 'interfaces/messages.model';
+import { MessageInterface } from 'interfaces/messages.model';
 import TitleHomePage from '../titleHome/titleHomePage';
+import RandomBanner from './randomBanner';
 
 export default function MessagesList() {
   const { user } = useContext(User);
@@ -49,13 +50,11 @@ export default function MessagesList() {
   }, [ref]);
 
   //API
-  const [messages, setMessages] = useState<AllMessages[]>([]);
+  const [messages, setMessages] = useState<Array<MessageInterface>>([]);
   const [visibleMessages, setVisibleMessages] = useState<number>(10);
   const handleShowMore: () => void = () => {
     setVisibleMessages(visibleMessages + 1);
   };
-
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,9 +63,7 @@ export default function MessagesList() {
           const messagesFeed = await GetAllMessages();
 
           const combinedMessage = [...messagesFeed.messages.map(msg => ({ ...msg }))];
-
-          console.log(combinedMessage, 'Combined Messages');
-          // setMessages(combinedMessage);
+          setMessages(combinedMessage);
         } catch (error) {
           console.error('Erreur lors des messages :', error);
         }
@@ -90,75 +87,95 @@ export default function MessagesList() {
     console.log('Erreur....');
   }
 
-  if (error) {
-    return (
-      <div>
-        <p>Une erreur est survenue... réessayez plus tard !</p>
-      </div>
-    );
-  }
+  // FILTRER LES MESSAGES DU JOUR
+  const today: string = new Date().toISOString().split('T')[0];
+  const filteredMessages = messages.filter(message => {
+    const messageDate = message.created_at.date.split(' ')[0];
+    return messageDate === today;
+  });
+  const firstTodayMessage = filteredMessages.length > 0 ? filteredMessages[0] : null;
+
+  // BANNIERE TAGS SUGGERES
+  const shouldDisplayBanner = (index: number) => {
+    return index > 0 && (index + 1) % 6 === 0;
+  };
 
   return (
     <>
       <TitleHomePage title={"Fil d'actualités"} />
       <div id="messagesUsers">
         {messages.length > 0 ? (
-          messages.slice(0, visibleMessages).map((message: any) => {
-            const msg = message.message;
-            return (
-              <>
-                <div
-                  className="messageUser"
-                  key={`message-${message.id}`}
-                  ref={ref}
-                >
-                  <div className="profilPic">
-                    <img
-                      src="https://picsum.photos/70/70"
-                      alt=""
-                      className="profilePicture"
-                    />
-                  </div>
-                  <div className="messageBody">
-                    <div className="infosUser">
-                      <div className="infoUserName">{message.author_firstname}</div>
-                      <div className="hourMessage">
-                        {message.created_at.date.slice(11, 16)}{' '}
-                        <span onClick={() => handleSubMenuToggle(message.id)}>
-                          <HiDotsVertical />
-                        </span>
-                        {isOpen && openMenu.includes(message.id) && message.id === selectedMessageId && <Menu />}
-                      </div>
+          messages
+            .sort((a: any, b: any) => {
+              const dateA: Date | string = new Date(a.created_at.date);
+              const dateB: Date | string = new Date(b.created_at.date);
+              return +dateA - +dateB;
+            })
+            .slice(0, visibleMessages)
+            .map((message: any, index: number) => {
+              const msg = message.message;
+              return (
+                <>
+                  {firstTodayMessage && message.id === firstTodayMessage.id && (
+                    <div className="today-banner">
+                      <span>Today</span>
                     </div>
-                    <div className="fullMessage">
-                      <p
-                        key={message.id}
-                        dangerouslySetInnerHTML={{
-                          __html: msg.replace(/#\w+/g, '<span class="hashtag">$&</span>'),
-                        }}
-                      ></p>
+                  )}
+
+                  {shouldDisplayBanner(index) && <RandomBanner />}
+
+                  <div
+                    className="messageUser"
+                    key={`message-${message.id}`}
+                    ref={ref}
+                  >
+                    <div className="profilPic">
+                      <img
+                        src="https://picsum.photos/70/70"
+                        alt=""
+                        className="profilePicture"
+                      />
                     </div>
-                    <div className="peopleTags">
-                      <div className="peopleFollowing">
-                        <BsPeopleFill />{' '}
-                        {message.conversation
-                          ? message.conversation.map((msg: any) => {
-                              return <span key={message.id}>{msg.nb_users.toString()}</span>;
-                            })
-                          : '0'}
-                        /{message.audience}
-                      </div>
-                      {message.conversation ? (
-                        <div className="sendMessage">
-                          <RiMessage2Fill />
+                    <div className="messageBody">
+                      <div className="infosUser">
+                        <div className="infoUserName">{message.author_firstname}</div>
+                        <div className="hourMessage">
+                          {message.created_at.date.slice(11, 16)}{' '}
+                          <span onClick={() => handleSubMenuToggle(message.id)}>
+                            <HiDotsVertical />
+                          </span>
+                          {isOpen && openMenu.includes(message.id) && message.id === selectedMessageId && <Menu />}
                         </div>
-                      ) : null}
+                      </div>
+                      <div className="fullMessage">
+                        <p
+                          key={message.id}
+                          dangerouslySetInnerHTML={{
+                            __html: msg.replace(/#\w+/g, '<span class="hashtag">$&</span>'),
+                          }}
+                        ></p>
+                      </div>
+                      <div className="peopleTags">
+                        <div className="peopleFollowing">
+                          <BsPeopleFill />{' '}
+                          {message.conversation
+                            ? message.conversation.map((msg: any) => {
+                                return <span key={message.id}>{msg.nb_users.toString()}</span>;
+                              })
+                            : '0'}
+                          /{message.audience}
+                        </div>
+                        {message.conversation ? (
+                          <div className="sendMessage">
+                            <RiMessage2Fill />
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </>
-            );
-          })
+                </>
+              );
+            })
         ) : (
           <div>
             <p className="no-new-messages">Aucun nouveau message...</p>

@@ -23,7 +23,6 @@ export default function Message({ placeholder }: WriteTagProps) {
 
   // API
   const [allTags, setAllTags] = useState<Tags[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   // GET TAGS
   useEffect(() => {
@@ -59,14 +58,6 @@ export default function Message({ placeholder }: WriteTagProps) {
     }
   } else {
     console.log('Erreur....');
-  }
-
-  if (error) {
-    return (
-      <>
-        <p>Une erreur est survenue... réessayez plus tard !</p>
-      </>
-    );
   }
 
   // INPUT VALUE
@@ -171,7 +162,7 @@ export default function Message({ placeholder }: WriteTagProps) {
                   <div className="audience">{tag.audience}</div>
                 </div>
               ))
-            : error}
+            : null}
         </div>
         <MdSend onClick={handlePostMessage} />
       </div>

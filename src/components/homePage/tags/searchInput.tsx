@@ -5,7 +5,7 @@ export interface SearchTagsProps {
 export default function SearchInput({ placeholder }: SearchTagsProps) {
   return (
     <input
-      className="search-tags"
+      className="search"
       placeholder={placeholder}
     />
   );

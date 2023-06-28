@@ -85,20 +85,24 @@ export default function ProfileForm(props: any) {
         id="editProfile"
         onClick={handleClick}
       >
-        <button
-          className="modal-close"
-          onClick={props.onClose}
-        >
-          X
-        </button>
+        <div className="buttons-modal">
+          <button
+            className="modal-close"
+            onClick={props.onClose}
+          >
+            X
+          </button>
+        </div>
         <form
           action=""
           id="Form-Profil"
         >
-          {error !== '' ? <div className="error">{error}</div> : ''}
+          {error ? <div className="error">{error}</div> : ''}
           <div>
             <label htmlFor="firstname">
-              <BsFillPersonFill /> <span className="span-edit-profile">Nom d'utilisateur</span>
+              <div className="label">
+                <BsFillPersonFill /> <span className="span-edit-profile">Nom d'utilisateur</span>
+              </div>
               <input
                 className="edit-input"
                 type="text"
@@ -110,7 +114,9 @@ export default function ProfileForm(props: any) {
           </div>
           <div>
             <label htmlFor="phoneNumber">
-              <CgPhone /> <span className="span-edit-profile">Numéro de téléphone</span>
+              <div className="label">
+                <CgPhone /> <span className="span-edit-profile">Numéro de téléphone</span>
+              </div>
               <input
                 className="edit-input"
                 type="text"
@@ -122,7 +128,9 @@ export default function ProfileForm(props: any) {
           </div>
           <div>
             <label htmlFor="description">
-              <MdDescription /> <span className="span-edit-profile">Description</span>
+              <div className="label">
+                <MdDescription /> <span className="span-edit-profile">Description</span>
+              </div>
               <textarea
                 className="description-bloc"
                 name="description"

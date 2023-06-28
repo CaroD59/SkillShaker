@@ -1,12 +1,10 @@
-import Profile from './profile';
 import List from './conversationsList';
+import SearchInput from '../tags/searchInput';
 
 export default function Conversations() {
   return (
     <>
-      {/* <div className="profileSection">
-        <Profile />
-      </div> */}
+      <SearchInput placeholder={'Conversation'} />
       <List />
     </>
   );

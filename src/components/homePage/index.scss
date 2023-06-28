@@ -147,7 +147,7 @@
         font-size: $medium-size;
       }
       .tags-gestion {
-        .search-tags {
+        .search {
           width: 100%;
           margin-bottom: 15px;
           border-radius: 10px;
@@ -180,6 +180,7 @@
             }
           }
           .tag-content {
+            width: 270px;
             display: flex;
             justify-content: space-between;
             border-radius: 10px;
@@ -230,6 +231,143 @@
       }
     }
     .conversations {
+      .search {
+        margin-top: 25px;
+        width: 100%;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        border: 1px solid $grey;
+        background-color: $background-input;
+        padding: 10px;
+        outline: none;
+      }
+      .all-conversations {
+        padding: 5px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        .show-conversations {
+          display: flex;
+          justify-content: space-between;
+          h2 {
+            font-weight: $medium;
+            font-size: $light-size;
+          }
+          p {
+            svg {
+              cursor: pointer;
+            }
+          }
+        }
+        .list.isOpenList {
+          height: 300px;
+        }
+        .list {
+          h2 {
+            font-weight: $lighter;
+            padding: 15px 0px 15px 0px;
+            font-size: 16px;
+            background: linear-gradient(to right, #673ab7 0%, #ff6f00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+          ul {
+            li {
+              .profil {
+                display: flex;
+                justify-content: space-between;
+                .picture {
+                  padding-right: 5px;
+                  img {
+                    border-radius: 50px;
+                  }
+                }
+                .informationsSection {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-around;
+                  .name {
+                    font-weight: $medium;
+                    span {
+                      font-weight: normal;
+                    }
+                  }
+                  .msg {
+                    white-space: nowrap;
+                  }
+                }
+              }
+            }
+          }
+
+          .profilIcon {
+            svg {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      .blocked-conversations {
+        padding: 5px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        .show-blocked-conversations {
+          display: flex;
+          justify-content: space-between;
+          h2 {
+            font-weight: $medium;
+            font-size: $light-size;
+          }
+          p {
+            svg {
+              cursor: pointer;
+            }
+          }
+        }
+        .list {
+          h2 {
+            font-weight: $lighter;
+            padding: 15px 0px 15px 0px;
+            font-size: 16px;
+            background: linear-gradient(to right, #673ab7 0%, #ff6f00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+          ul {
+            li {
+              .profil {
+                margin-top: 25px;
+                display: flex;
+                justify-content: space-between;
+                .picture {
+                  padding-right: 5px;
+                  img {
+                    border-radius: 50px;
+                  }
+                }
+                .informationsSection {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-around;
+                  .name {
+                    font-weight: $medium;
+                    span {
+                      font-weight: normal;
+                    }
+                  }
+                  .msg {
+                    white-space: nowrap;
+                  }
+                }
+                .profilIcon {
+                  svg {
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
     .messages {
       overflow: hidden;
@@ -251,13 +389,33 @@
           font-size: $big-size;
         }
       }
+      .no-new-messages {
+        margin-top: 50px;
+      }
       #messagesUsers {
-        height: 100%;
-        padding: 10px;
+        height: 90%;
         overflow-y: scroll;
         display: flex;
         flex-direction: column;
         align-items: center;
+        .today-banner {
+          margin: 30px 0px 30px 0px;
+          width: 100%;
+          text-align: center;
+          height: 1px;
+          background-image: linear-gradient(to right, #ff6f00, #ff3548, #ec0077, #ba149f, #673ab7);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          span {
+            padding: 10px 31px 10px 31px;
+            border-radius: 10px;
+            background-image: linear-gradient(to right, #673ab7, #ba149f, #ec0077, #ff3548, #ff6f00);
+            color: $light;
+            font-size: $med-size;
+            font-weight: $medium;
+          }
+        }
         .messageUser {
           display: flex;
           justify-content: space-between;
@@ -313,6 +471,33 @@
                 color: $skillshaker-red-color;
                 font-weight: 700;
               }
+            }
+          }
+        }
+        .banner-suggested-tags {
+          width: 100%;
+          background-image: linear-gradient(to right, #673ab7, #ba149f, #ec0077, #ff3548, #ff6f00);
+          color: $light;
+          padding: 50px 0px 50px 0px;
+          text-align: center;
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          .name-tag {
+            font-weight: $medium;
+            font-size: $bigger-size;
+            padding-bottom: 45px;
+          }
+          .audience {
+            font-weight: $medium;
+            font-size: $med-size;
+          }
+          .icon-bin,
+          .icon-check {
+            svg {
+              width: 48px;
+              height: 48px;
+              cursor: pointer;
             }
           }
         }
