@@ -97,13 +97,22 @@ export default function MessagesList() {
 
   // BANNIERE TAGS SUGGERES
   const shouldDisplayBanner = (index: number) => {
-    return index > 0 && (index + 1) % 6 === 0;
+    return index > 0 && (index + 1) % 7 === 0;
   };
+
+  // ALLER DIRECTEMENT EN BAS DU SCROLL
+  const messagesUsersRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    messagesUsersRef.current?.scrollTo(0, messagesUsersRef.current?.scrollHeight);
+  }, [messages]);
 
   return (
     <>
       <TitleHomePage title={"Fil d'actualités"} />
-      <div id="messagesUsers">
+      <div
+        id="messagesUsers"
+        ref={messagesUsersRef}
+      >
         {messages.length > 0 ? (
           messages
             .sort((a: any, b: any) => {

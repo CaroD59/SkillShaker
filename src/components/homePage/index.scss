@@ -180,7 +180,8 @@
             }
           }
           .tag-content {
-            width: 270px;
+            font-size: 16px;
+            width: 250px;
             display: flex;
             justify-content: space-between;
             border-radius: 10px;
@@ -190,7 +191,7 @@
             position: relative;
             .pop-notif {
               position: absolute;
-              left: 250px;
+              left: 230px;
               bottom: 30px;
               width: 30px;
               height: 30px;
@@ -199,6 +200,16 @@
               color: #ffffff;
               text-align: center;
               line-height: 30px;
+            }
+            .audience {
+              font-weight: $medium;
+              color: $dark-mode;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              svg {
+                margin-right: 5px;
+              }
             }
             .check-tag {
               color: $tags;
@@ -212,9 +223,6 @@
           .tag-content {
             .bin-tag {
               cursor: pointer;
-            }
-            .check-tag {
-              opacity: 0.5;
             }
           }
         }
@@ -500,6 +508,15 @@
               cursor: pointer;
             }
           }
+        }
+        .fade-out {
+          opacity: 0;
+          transition: opacity 0.3s ease-out;
+        }
+        .banner-suggested-tags.fade-out {
+          transition: 0.5s;
+          height: 0px;
+          padding: 0px;
         }
         .load-more {
           width: 200px;

@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { AllTagsInterface, UserTagsInterface } from '../interfaces/tags.model';
-import { AllMessages, MessageInterface } from '../interfaces/messages.model';
+import { AllMessages } from '../interfaces/messages.model';
 import Cookies from 'js-cookie';
 
 const authToken: string | undefined = Cookies.get('auth_token');
@@ -62,6 +62,30 @@ export async function GetUserTags(): Promise<UserTagsInterface> {
       console.log('Aucun tag trouvé.');
     } else {
       console.error("Erreur lors de la récupération des tags de l'utilisateur :", error);
+    }
+    throw error;
+  }
+}
+
+// Interaction avec un tag
+export async function InteractionTag(tagId: string, changeState: string, authToken: string): Promise<UserTagsInterface> {
+  try {
+    const response: AxiosResponse<UserTagsInterface> = await axios.get<UserTagsInterface>(
+      `${import.meta.env.VITE_BASE_URL}/tagUser/${tagId}/change_state?state=${changeState}`,
+      {
+        headers: {
+          Authorization: 'Bearer ' + authToken,
+          Accept: 'application/json',
+        },
+      }
+    );
+    const interactUserTag: UserTagsInterface = response.data;
+    return interactUserTag;
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      console.log('Le tag ne peut pas être refusé...');
+    } else {
+      console.error('Erreur lors du refus du tag :', error);
     }
     throw error;
   }

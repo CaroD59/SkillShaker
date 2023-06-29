@@ -1,18 +1,22 @@
 import { AiOutlineMinus } from 'react-icons/ai';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { IoTrashBin } from 'react-icons/io5';
-import { BsFillCheckCircleFill } from 'react-icons/bs';
+import { BsFillPeopleFill } from 'react-icons/bs';
 import Notification from '../notifications/notification';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useState, useContext, useEffect } from 'react';
+import { InteractionTag } from '../../../services/api_manager';
 
 // CONTEXT
 import User from '../../../contexts/userContext';
+import { DeletedTagsContext } from '../../../contexts/tagsContext';
 
 export default function Accepted() {
   // CONTEXT
   const { user } = useContext(User);
+  const deletedTags = useContext(DeletedTagsContext);
+
   const authToken: string | undefined = Cookies.get('auth_token');
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const toggleOpen = () => {
@@ -22,9 +26,29 @@ export default function Accepted() {
   // API
   const [tags, setTags] = useState<Array<any>>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // REFUSED TAG
+  const handleTagRefusal = async (tagId: string) => {
+    if (authToken) {
+      try {
+        setLoading(true);
+        await InteractionTag(tagId, '0', authToken);
+        const updatedTags = tags.filter(tag => tag.id !== tagId);
+        setTags(updatedTags);
+        console.log('Tag supprimé...');
+
+        // updateDeletedTags(deletedTags.filter(tag => tag.id !== tagId));
+      } catch (error) {
+        console.log('Erreur en supprimant le tag...');
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   useEffect(() => {
-    if (user) {
+    if (user && !loading) {
       axios
         .get(import.meta.env.VITE_BASE_URL + '/tagUser/get', {
           headers: {
@@ -38,7 +62,7 @@ export default function Accepted() {
           setTags(data.data.myTags);
         });
     }
-  }, [user, authToken]);
+  }, [user, authToken, loading]);
 
   // LOCAL STORAGE
   if (typeof Storage !== 'undefined') {
@@ -69,11 +93,11 @@ export default function Accepted() {
             >
               <Notification numberOfNotifications={2} />
               <div className="bin-tag">
-                <IoTrashBin />
+                <IoTrashBin onClick={() => handleTagRefusal(tag.id)} />
               </div>
               <div className="text-tag">#{tag.name}</div>
-              <div className="check-tag">
-                <BsFillCheckCircleFill />
+              <div className="audience">
+                <BsFillPeopleFill /> <span>{String(tag.audience).padStart(2, '0')}</span>
               </div>
             </div>
           );
