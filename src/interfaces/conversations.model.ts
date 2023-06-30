@@ -35,8 +35,8 @@ export interface ConversationInterface {
         community: string;
       }
     ];
-    }
-  
+  };
+
   notifications: number;
 }
 

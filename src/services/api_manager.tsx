@@ -7,7 +7,7 @@ import UserInterface from '../interfaces/user.model';
 
 const authToken: string | undefined = Cookies.get('auth_token');
 
-// Avoir les informations utilisateur 
+// Avoir les informations utilisateur
 export async function UserInfo(authToken: string): Promise<UserInterface> {
   try {
     const response: AxiosResponse<UserInterface> = await axios.get<UserInterface>(import.meta.env.VITE_BASE_URL + '/user/info', {
@@ -116,15 +116,12 @@ export async function InteractionTag(tagId: string, changeState: string, authTok
 // Afficher les conversations
 export async function GetConversations(authToken: string): Promise<AllConversations> {
   try {
-    const response: AxiosResponse<AllConversations> = await axios.get<AllConversations>(
-      `${import.meta.env.VITE_BASE_URL}/conversation/get/all`,
-      {
-        headers: {
-          Authorization: 'Bearer ' + authToken,
-          Accept: 'application/json',
-        },
-      }
-    );
+    const response: AxiosResponse<AllConversations> = await axios.get<AllConversations>(`${import.meta.env.VITE_BASE_URL}/conversation/get/all`, {
+      headers: {
+        Authorization: 'Bearer ' + authToken,
+        Accept: 'application/json',
+      },
+    });
     const allConversations: AllConversations = response.data;
     return allConversations;
   } catch (error: any) {
