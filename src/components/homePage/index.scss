@@ -264,7 +264,8 @@
           justify-content: space-between;
           h2 {
             font-weight: $medium;
-            font-size: $light-size;
+            font-size: 16px;
+            white-space: nowrap;
           }
           p {
             svg {
