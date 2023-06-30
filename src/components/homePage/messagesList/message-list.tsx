@@ -1,16 +1,19 @@
+import { useState, useContext, useEffect, useRef } from 'react';
+import { GetAllMessages, UserInfo } from '../../../services/api_manager';
+import { MessageInterface } from '../../../interfaces/messages.model';
+import UserInterface from '../../../interfaces/user.model';
+import TitleHomePage from '../titleHome/titleHomePage';
+import RandomBanner from './randomBanner';
+import Message from './message';
+import Menu from './menuMessage';
 import { HiDotsVertical } from 'react-icons/hi';
 import { BsPeopleFill } from 'react-icons/bs';
+import { BiSolidLike } from 'react-icons/bi';
 import { RiMessage2Fill } from 'react-icons/ri';
 import Cookies from 'js-cookie';
-import Menu from './menuMessage';
-import { useState, useContext, useEffect, useRef } from 'react';
-import { GetAllMessages } from '../../../services/api_manager';
 
 // CONTEXT
 import User from '../../../contexts/userContext';
-import { MessageInterface } from 'interfaces/messages.model';
-import TitleHomePage from '../titleHome/titleHomePage';
-import RandomBanner from './randomBanner';
 
 export default function MessagesList() {
   const { user } = useContext(User);
@@ -50,10 +53,26 @@ export default function MessagesList() {
   }, [ref]);
 
   //API
+  const [infos, setInfos] = useState<UserInterface | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (user && authToken) {
+        try {
+          const userInfo = await UserInfo(authToken);
+          setInfos(userInfo);
+        } catch (error) {
+          console.error("Erreur lors de la récupération de l'utilisateur :", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [user, authToken]);
+
   const [messages, setMessages] = useState<Array<MessageInterface>>([]);
-  const [visibleMessages, setVisibleMessages] = useState<number>(10);
+  const [visibleMessages, setVisibleMessages] = useState<number>(20);
   const handleShowMore: () => void = () => {
-    setVisibleMessages(visibleMessages + 1);
+    setVisibleMessages(visibleMessages + 20);
   };
 
   useEffect(() => {
@@ -113,6 +132,14 @@ export default function MessagesList() {
         id="messagesUsers"
         ref={messagesUsersRef}
       >
+        {visibleMessages < messages.length && (
+          <button
+            className="load-more"
+            onClick={handleShowMore}
+          >
+            Voir plus
+          </button>
+        )}
         {messages.length > 0 ? (
           messages
             .sort((a: any, b: any) => {
@@ -120,7 +147,7 @@ export default function MessagesList() {
               const dateB: Date | string = new Date(b.created_at.date);
               return +dateA - +dateB;
             })
-            .slice(0, visibleMessages)
+            .slice(messages.length - visibleMessages, messages.length)
             .map((message: any, index: number) => {
               const msg = message.message;
               return (
@@ -149,7 +176,8 @@ export default function MessagesList() {
                       <div className="infosUser">
                         <div className="infoUserName">{message.author_firstname}</div>
                         <div className="hourMessage">
-                          {message.created_at.date.slice(11, 16)}{' '}
+                          {new Date(message.created_at.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+
                           <span onClick={() => handleSubMenuToggle(message.id)}>
                             <HiDotsVertical />
                           </span>
@@ -166,7 +194,7 @@ export default function MessagesList() {
                       </div>
                       <div className="peopleTags">
                         <div className="peopleFollowing">
-                          <BsPeopleFill />{' '}
+                          <BsPeopleFill />
                           {message.conversation
                             ? message.conversation.map((msg: any) => {
                                 return <span key={message.id}>{msg.nb_users.toString()}</span>;
@@ -174,11 +202,16 @@ export default function MessagesList() {
                             : '0'}
                           /{message.audience}
                         </div>
-                        {message.conversation ? (
+                        {message.author_id !== infos?.id && !message.conversation && (
+                          <div className="sendMessage">
+                            <BiSolidLike />
+                          </div>
+                        )}
+                        {message.conversation && (
                           <div className="sendMessage">
                             <RiMessage2Fill />
                           </div>
-                        ) : null}
+                        )}
                       </div>
                     </div>
                   </div>
@@ -190,15 +223,8 @@ export default function MessagesList() {
             <p className="no-new-messages">Aucun nouveau message...</p>
           </div>
         )}
-        {visibleMessages < messages.length && (
-          <button
-            className="load-more"
-            onClick={handleShowMore}
-          >
-            Voir plus
-          </button>
-        )}
       </div>
+      <Message placeholder={'Rédiger un #tag'} />
     </>
   );
 }

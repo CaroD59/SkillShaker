@@ -34,7 +34,6 @@ export default function RandomBanner() {
   const highestAudienceTag = sortedTags[0];
 
   // INTERACTION TAG
-  const [tagId, setTagId] = useState<string>('');
   const [showTag, setShowTag] = useState<boolean>(true);
 
   const handleTagRefusal = () => {
@@ -80,7 +79,7 @@ export default function RandomBanner() {
               <div>
                 <p className="name-tag">#{highestAudienceTag.name}</p>
                 <p className="audience">
-                  <BsFillPeopleFill /> {highestAudienceTag.audience} abonnés
+                  <BsFillPeopleFill /> {highestAudienceTag.audience} {highestAudienceTag.audience >= 2 ? 'abonnés' : 'abonné'}
                 </p>
               </div>
               <div

@@ -1,9 +1,31 @@
 import axios, { AxiosResponse } from 'axios';
 import { AllTagsInterface, UserTagsInterface } from '../interfaces/tags.model';
 import { AllMessages } from '../interfaces/messages.model';
+import { AllConversations } from '../interfaces/conversations.model';
 import Cookies from 'js-cookie';
+import UserInterface from '../interfaces/user.model';
 
 const authToken: string | undefined = Cookies.get('auth_token');
+
+// Avoir les informations utilisateur 
+export async function UserInfo(authToken: string): Promise<UserInterface> {
+  try {
+    const response: AxiosResponse<UserInterface> = await axios.get<UserInterface>(import.meta.env.VITE_BASE_URL + '/user/info', {
+      headers: {
+        Authorization: 'Bearer ' + authToken,
+      },
+    });
+    const userInfo: UserInterface = response.data;
+    return userInfo;
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      console.log('Aucun message trouvé.');
+    } else {
+      console.error('Erreur lors de la récupération des messages :', error);
+    }
+    throw error;
+  }
+}
 
 // Avoir tous les messages
 export async function GetAllMessages(): Promise<AllMessages> {
@@ -84,6 +106,30 @@ export async function InteractionTag(tagId: string, changeState: string, authTok
   } catch (error: any) {
     if (error.response && error.response.status === 404) {
       console.log('Le tag ne peut pas être refusé...');
+    } else {
+      console.error('Erreur lors du refus du tag :', error);
+    }
+    throw error;
+  }
+}
+
+// Afficher les conversations
+export async function GetConversations(authToken: string): Promise<AllConversations> {
+  try {
+    const response: AxiosResponse<AllConversations> = await axios.get<AllConversations>(
+      `${import.meta.env.VITE_BASE_URL}/conversation/get/all`,
+      {
+        headers: {
+          Authorization: 'Bearer ' + authToken,
+          Accept: 'application/json',
+        },
+      }
+    );
+    const allConversations: AllConversations = response.data;
+    return allConversations;
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      console.log('Aucune conversation ');
     } else {
       console.error('Erreur lors du refus du tag :', error);
     }

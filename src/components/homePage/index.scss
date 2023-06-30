@@ -2,138 +2,9 @@
 
 #SkillShaker-HP {
   .full-height-container {
-    height: 90vh;
+    height: 100vh;
     .full-height-column {
       height: 100%;
-    }
-    .footer-row {
-      height: 10vh;
-      .footer {
-        z-index: 1;
-        text-align: center;
-        padding: 15px;
-        border-top: 1px solid $grey;
-        padding: 0px;
-        .profil {
-          padding: 15px;
-          border-right: 1px solid $grey;
-          .user {
-            display: flex;
-            justify-content: space-between;
-            .picture {
-              img {
-                border-radius: 50px;
-              }
-            }
-            .informationsSection {
-              display: flex;
-              align-items: center;
-              .name {
-                font-weight: $medium;
-              }
-            }
-            .profilIcon {
-              position: relative;
-              svg {
-                cursor: pointer;
-              }
-              .menuProfil {
-                background-color: $skillshaker-red-color;
-                position: absolute;
-                bottom: 55px;
-                left: 7px;
-                z-index: 9999;
-                li {
-                  padding: 10px;
-                  button {
-                    color: $light;
-                    border: none;
-                    background-color: transparent;
-                  }
-                }
-              }
-            }
-          }
-        }
-        .write-tag {
-          padding: 15px;
-          .msg {
-            display: flex;
-            align-items: center;
-            position: relative;
-            input {
-              width: 80%;
-              border-radius: 10px;
-              border: 1px solid $grey;
-              background-color: $background-input;
-              padding: 10px;
-              outline: none;
-            }
-            .allTagsSearchBar {
-              position: absolute;
-              z-index: 9999;
-              left: 3px;
-              &.active {
-                height: 100px;
-                bottom: 44px;
-                width: 80%;
-                overflow-y: scroll;
-                overflow-x: hidden;
-                background-color: $light;
-                border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
-                border-bottom-right-radius: 5px;
-                border-bottom-left-radius: 5px;
-                border-top: 1px solid black;
-                border-left: 1px solid black;
-                border-right: 1px solid black;
-                .my-tag-class,
-                .suggested-tag-class,
-                .refused-tag-class {
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  padding: 10px;
-                  cursor: pointer;
-                  .tagName {
-                    margin-right: 10px;
-                  }
-                  .audience {
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 50%;
-                    background-color: $skillshaker-red-color;
-                    color: $light;
-                    text-align: center;
-                    line-height: 30px;
-                  }
-                }
-                .refused-tag-class,
-                .suggested-tag-class {
-                  opacity: 0.5;
-                }
-              }
-            }
-            svg {
-              margin-left: 15px;
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
-              background-color: $skillshaker-red-color;
-              color: $light;
-              text-align: center;
-              line-height: 30px;
-              padding: 5px;
-              cursor: pointer;
-            }
-          }
-          .audience-bloc {
-            margin-top: 10px;
-            font-size: $short-size;
-            display: flex;
-          }
-        }
-      }
     }
     .tags {
       border-right: 1px solid $grey;
@@ -158,7 +29,7 @@
         }
         .myTags.isOpenTags,
         .refusedTags.isOpenTags {
-          height: 300px;
+          height: 250px;
         }
         .myTags.isOpenTags {
           margin-bottom: 50px;
@@ -220,6 +91,10 @@
           }
         }
         .myTags {
+          .no-tags {
+            padding-top: 15px;
+            text-align: center;
+          }
           .tag-content {
             .bin-tag {
               cursor: pointer;
@@ -227,12 +102,54 @@
           }
         }
         .refusedTags {
+          .no-tags {
+            padding-top: 15px;
+            text-align: center;
+          }
           .tag-content {
             .bin-tag {
               opacity: 0.5;
             }
             .check-tag {
               cursor: pointer;
+            }
+          }
+        }
+      }
+      .user {
+        margin: 10px 0px 10px 0px;
+        display: flex;
+        justify-content: space-between;
+        .picture {
+          img {
+            border-radius: 50px;
+          }
+        }
+        .informationsSection {
+          display: flex;
+          align-items: center;
+          .name {
+            font-weight: $medium;
+          }
+        }
+        .profilIcon {
+          position: relative;
+          svg {
+            cursor: pointer;
+          }
+          .menuProfil {
+            background-color: $skillshaker-red-color;
+            position: absolute;
+            top: 19px;
+            left: 6px;
+            z-index: 9999;
+            li {
+              padding: 10px;
+              button {
+                color: $light;
+                border: none;
+                background-color: transparent;
+              }
             }
           }
         }
@@ -253,6 +170,7 @@
         padding: 5px;
         overflow-y: scroll;
         overflow-x: hidden;
+        margin-bottom: 20px;
         .show-conversations {
           display: flex;
           justify-content: space-between;
@@ -267,7 +185,7 @@
           }
         }
         .list.isOpenList {
-          height: 300px;
+          height: 250px;
         }
         .list {
           h2 {
@@ -280,29 +198,47 @@
           }
           ul {
             li {
+              position: relative;
+              cursor: pointer;
               .profil {
                 display: flex;
                 justify-content: space-between;
-                .picture {
-                  padding-right: 5px;
+                margin-bottom: 15px;
+                .message {
+                  display: flex;
+                  flex-direction: row;
                   img {
                     border-radius: 50px;
+                    margin-right: 5px;
                   }
-                }
-                .informationsSection {
-                  display: flex;
-                  flex-direction: column;
-                  justify-content: space-around;
-                  .name {
-                    font-weight: $medium;
-                    span {
-                      font-weight: normal;
+                  .informationsSection {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    .name {
+                      font-weight: $medium;
+                      span {
+                        font-weight: normal;
+                      }
+                    }
+                    .msg {
+                      white-space: nowrap;
                     }
                   }
-                  .msg {
-                    white-space: nowrap;
-                  }
                 }
+              }
+              .notification-conversation {
+                position: absolute;
+                bottom: 32px;
+                right: 25px;
+                font-size: $short-size;
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background-image: linear-gradient(to right, #673ab7, #ba149f, #ec0077, #ff3548, #ff6f00);
+                color: $light;
+                text-align: center;
+                line-height: 15px;
               }
             }
           }
@@ -311,6 +247,11 @@
             svg {
               cursor: pointer;
             }
+          }
+
+          .no-conversations {
+            padding-top: 15px;
+            text-align: center;
           }
         }
       }
@@ -332,6 +273,7 @@
           }
         }
         .list {
+          cursor: pointer;
           h2 {
             font-weight: $lighter;
             padding: 15px 0px 15px 0px;
@@ -343,32 +285,29 @@
           ul {
             li {
               .profil {
-                margin-top: 25px;
                 display: flex;
                 justify-content: space-between;
-                .picture {
-                  padding-right: 5px;
+                margin-top: 15px;
+                .message {
+                  display: flex;
+                  flex-direction: row;
                   img {
                     border-radius: 50px;
+                    margin-right: 5px;
                   }
-                }
-                .informationsSection {
-                  display: flex;
-                  flex-direction: column;
-                  justify-content: space-around;
-                  .name {
-                    font-weight: $medium;
-                    span {
-                      font-weight: normal;
+                  .informationsSection {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    .name {
+                      font-weight: $medium;
+                      span {
+                        font-weight: normal;
+                      }
                     }
-                  }
-                  .msg {
-                    white-space: nowrap;
-                  }
-                }
-                .profilIcon {
-                  svg {
-                    cursor: pointer;
+                    .msg {
+                      white-space: nowrap;
+                    }
                   }
                 }
               }
@@ -401,7 +340,7 @@
         margin-top: 50px;
       }
       #messagesUsers {
-        height: 90%;
+        height: 80%;
         overflow-y: scroll;
         display: flex;
         flex-direction: column;
@@ -475,9 +414,17 @@
               }
             }
             .peopleTags {
+              display: flex;
+              justify-content: space-between;
               .peopleFollowing {
                 color: $skillshaker-red-color;
                 font-weight: 700;
+              }
+              .sendMessage {
+                svg {
+                  cursor: pointer;
+                  color: $light-blue;
+                }
               }
             }
           }
@@ -525,6 +472,81 @@
           color: $light;
           padding: 10px 20px;
         }
+      }
+      .msg {
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 15px 0px 0px 15px;
+        border-top: 1px solid $grey;
+        input {
+          width: 80%;
+          border-radius: 10px;
+          border: 1px solid $grey;
+          background-color: $background-input;
+          padding: 10px;
+          outline: none;
+        }
+        .allTagsSearchBar {
+          position: absolute;
+          z-index: 9999;
+          left: 15px;
+          &.active {
+            height: 100px;
+            bottom: 44px;
+            width: 79%;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            background-color: $light;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border: 1px solid $grey;
+            .my-tag-class,
+            .suggested-tag-class,
+            .refused-tag-class {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 10px;
+              cursor: pointer;
+              .tagName {
+                margin-right: 10px;
+              }
+              .audience {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-color: $skillshaker-red-color;
+                color: $light;
+                text-align: center;
+                line-height: 30px;
+              }
+            }
+            .refused-tag-class,
+            .suggested-tag-class {
+              opacity: 0.5;
+            }
+          }
+        }
+        svg {
+          margin-left: 15px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: $skillshaker-red-color;
+          color: $light;
+          text-align: center;
+          line-height: 30px;
+          padding: 5px;
+          cursor: pointer;
+        }
+      }
+      .audience-bloc {
+        margin: 10px 0px 0px 15px;
+        font-size: $short-size;
+        display: flex;
       }
     }
   }

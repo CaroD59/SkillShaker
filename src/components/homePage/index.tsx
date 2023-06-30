@@ -2,7 +2,6 @@ import Cookies from 'js-cookie';
 import MessagesList from './messagesList/message-list';
 import Conversations from './conversations';
 import Tags from './tags';
-import NavBar from './navBar/navBar';
 import { NavLink } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import './index.scss';
@@ -37,14 +36,6 @@ export default function HomePage() {
               className="messages full-height-column"
             >
               <MessagesList />
-            </Col>
-          </Row>
-          <Row className="footer-row">
-            <Col
-              className="footer"
-              lg={12}
-            >
-              <NavBar />
             </Col>
           </Row>
         </Container>

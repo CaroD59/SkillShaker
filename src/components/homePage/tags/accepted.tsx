@@ -84,24 +84,30 @@ export default function Accepted() {
         <h3>Mes tags ({tags.length})</h3>
         <p onClick={toggleOpen}>{isOpen ? <AiOutlineMinus /> : <HiOutlinePlus />}</p>
       </div>
-      {isOpen &&
-        tags.map(tag => {
-          return (
-            <div
-              className="tag-content"
-              key={tag.id}
-            >
-              <Notification numberOfNotifications={2} />
-              <div className="bin-tag">
-                <IoTrashBin onClick={() => handleTagRefusal(tag.id)} />
-              </div>
-              <div className="text-tag">#{tag.name}</div>
-              <div className="audience">
-                <BsFillPeopleFill /> <span>{String(tag.audience).padStart(2, '0')}</span>
-              </div>
-            </div>
-          );
-        })}
+      {tags.length > 0 ? (
+        <>
+          {isOpen &&
+            tags.map(tag => {
+              return (
+                <div
+                  className="tag-content"
+                  key={tag.id}
+                >
+                  <Notification numberOfNotifications={2} />
+                  <div className="bin-tag">
+                    <IoTrashBin onClick={() => handleTagRefusal(tag.id)} />
+                  </div>
+                  <div className="text-tag">#{tag.name}</div>
+                  <div className="audience">
+                    <BsFillPeopleFill /> <span>{String(tag.audience).padStart(2, '0')}</span>
+                  </div>
+                </div>
+              );
+            })}
+        </>
+      ) : (
+        <>{isOpen && <div className="no-tags">Vous n'avez pas encore accepté de tag...</div>}</>
+      )}
     </div>
   );
 }
