@@ -9,8 +9,8 @@ L'application fonctionne avec Docker et les commandes du Makefile
 # Installation
 
 1. Cloner les sources du projet sur votre environnement local : `git clone git@github.com:it-room/SkillShaker.git`
-2. Créer le fichier `infra/.env.local` à partir du fichier `infra/.env` et changer le PORT pour mettre `3000`
-3. Créer le fichier `.env.local` à partir du fichier `.env` et renseigner les variables selon vos besoins
+2. Créer le fichier `infra/.env.` à partir du fichier `infra/.env.dist` et changer le PORT pour mettre `3000`
+3. Créer le fichier `.env.` à partir du fichier `.env.dist` à la source du dossier et renseigner les variables selon vos besoins
 4. À la racine du projet, lancer la commande `make build` pour construire les images docker du projet
 5. À la racine du projet, lancer la commande `make assets-build` pour installer les dépendances et build les assets front du projet
 
