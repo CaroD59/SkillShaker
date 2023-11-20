@@ -59,8 +59,8 @@ export default function List() {
               {allConversations.length > 0 ? (
                 allConversations.map((conversation: ConversationInterface, index: number) => {
                   return (
-                    <ul>
-                      <li key={index}>
+                    <ul key={index}>
+                      <li key={conversation.id}>
                         <div className="profil">
                           <div className="message">
                             <img
